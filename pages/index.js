@@ -41,10 +41,10 @@ const Home = () => {
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>Create Web3 twitter threads</h1>
+            <h1>Create copy for any website</h1>
           </div>
           <div className="header-subtitle">
-            <h2>Describe the crypto topics and concepts you want to cover!</h2>
+            <h2>Describe your business!</h2>
           </div>
         </div>
         <div className="prompt-container">

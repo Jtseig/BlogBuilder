@@ -4,13 +4,22 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+let currentLocation = '';
+
+const success = function(data){
+  currentLocation = data; 
+  console.log(currentLocation);
+}
+
+navigator.geolocation.getCurrentPosition(success, console.error);
+
 const openai = new OpenAIApi(configuration);
 
 const basePromptPrefix =
 `
-Explain how the below topic works, how it has changed over time, and why it is important today. Make sure the explanation is simple and concise.  
+Provide multiple examples of website copy for the business idea below. The copy should feel like language the company Apple uses for their website and products.   
 
-Topic:
+Business Idea:
 `
 
 const generateAction = async (req, res) => {
@@ -28,13 +37,11 @@ const generateAction = async (req, res) => {
   // I build Prompt #2.
   const secondPrompt = 
   `
-  Take the explanation and topic below and generate a twitter thread in the style of Paul Graham.
+  Pick the copy that will drive the most growth from the copy examples below. 
 
-  Topic: ${req.body.userInput}
+  Copy Examples: ${basePromptOutput.text}
 
-  Explanation: ${basePromptOutput.text}
-
-  Twitter Thread:
+  Recomended Copy:
   `
   
   // I call the OpenAI API a second time with Prompt #2
